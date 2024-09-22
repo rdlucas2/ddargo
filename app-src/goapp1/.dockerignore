@@ -1,0 +1,6 @@
+Dockerfile
+.dockerignore
+README.md
+sonar-project.properties
+scratchpad.txt
+out/
