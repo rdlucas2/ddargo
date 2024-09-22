@@ -32,3 +32,6 @@ scratchpad.txt
 
 # output
 out/
+
+# secret.yaml is a k8s secret that contains dockerhub credentials
+secret.yaml
