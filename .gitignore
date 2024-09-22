@@ -23,3 +23,12 @@ go.work.sum
 
 # env file
 .env
+
+# keys
+**/*.pem
+
+# scratchpad
+scratchpad.txt
+
+# output
+out/

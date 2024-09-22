@@ -72,7 +72,17 @@ argocd cluster add docker-desktop
 
 ## Adding Repositories and Apps
 
-### 1. 
+### 1. make a github app: 
+- make a new app here: `https://github.com/settings/apps/new`
+- create a private key to be used in next step (and add *.pem to your .gitignore)
+
+### 2. add the repo:
+- replace app id, installation id, and the pem with your own values
+```
+argocd repo add https://git.example.com/repos/repo --github-app-id 1 --github-app-installation-id 2 --github-app-private-key-path test.private-key.pem
+```
+
+
 
 ## TODO:
 - create an argo app, k8s manifests or helm chart, create a simple app and host on dockerhub
@@ -82,3 +92,4 @@ argocd cluster add docker-desktop
 - https://kubernetes.github.io/ingress-nginx/deploy/#quick-start
 - https://argo-cd.readthedocs.io/en/stable/cli_installation/
 - https://collabnix.com/getting-started-with-argocd-on-docker-desktop/
+- https://argo-cd.readthedocs.io/en/release-2.10/user-guide/commands/argocd_repo_add/
