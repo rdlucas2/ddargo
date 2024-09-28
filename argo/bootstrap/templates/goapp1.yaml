@@ -10,9 +10,11 @@ spec:
     path: helm/web-chart
     targetRevision: HEAD
     helm:
+      # Helm values files for overriding values in the helm chart
+      # The path is relative to the spec.source.path directory defined above
       valueFiles:
-      - ../../envs/common/goapp1-values.yaml
-      - ../../envs/{{ .Values.env }}/goapp1-values.yaml
+      - ../envs/common/goapp1-values.yaml
+      - ../envs/{{ .Values.env }}/goapp1-values.yaml
   destination:
     server: {{ .Values.spec.destination.server }}
     namespace: default
