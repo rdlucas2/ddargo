@@ -93,3 +93,4 @@ argocd repo add https://git.example.com/repos/repo --github-app-id 1 --github-ap
 - https://argo-cd.readthedocs.io/en/stable/cli_installation/
 - https://collabnix.com/getting-started-with-argocd-on-docker-desktop/
 - https://argo-cd.readthedocs.io/en/release-2.10/user-guide/commands/argocd_repo_add/
+- https://argo-cd.readthedocs.io/en/stable/operator-manual/cluster-bootstrapping/
