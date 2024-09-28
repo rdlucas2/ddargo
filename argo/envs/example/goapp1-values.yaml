@@ -1,0 +1,5 @@
+# example environment specific value overrides
+
+ingress:
+  hosts:
+    - host: goapp1.example.me

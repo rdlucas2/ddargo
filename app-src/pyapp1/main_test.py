@@ -24,3 +24,15 @@ def test_read_item_with_query():
     response = client.get(f"/items/{item_id}?q={query}")
     assert response.status_code == 200
     assert response.json() == {"item_id": item_id, "q": query}
+
+def test_healthz():
+    """Test the /healthz endpoint for liveness probe."""
+    response = client.get("/healthz")
+    assert response.status_code == 200
+    assert response.json() == {"status": "ok"}
+
+def test_ready():
+    """Test the /ready endpoint for readiness probe."""
+    response = client.get("/ready")
+    assert response.status_code == 200
+    assert response.json() == {"status": "ready"}

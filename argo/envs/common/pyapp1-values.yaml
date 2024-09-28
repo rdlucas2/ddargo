@@ -1,0 +1,7 @@
+# values specific to the app, but for all envs
+
+image:
+  repository: rdlucas2/pyapp1
+
+service:
+  port: 8000

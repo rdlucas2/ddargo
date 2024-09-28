@@ -30,7 +30,8 @@ CMD ["/bin/sh", "/app/test.sh"]
 FROM python:3.11-alpine AS artifact
 
 # Remove unnecessary packages (similar to Go example, though not as extensive for Python)
-RUN rm -rf /sbin/apk /etc/apk /lib/apk /usr/share/apk /var/lib/apk
+RUN rm -rf /sbin/apk /etc/apk /lib/apk /usr/share/apk /var/lib/apk && \
+    pip uninstall -y setuptools
 
 # Create a non-root user and group
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup

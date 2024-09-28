@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: goapp1
+  name: pyapp1
   namespace: argocd
 spec:
   project: default
@@ -11,8 +11,8 @@ spec:
     targetRevision: HEAD
     helm:
       valueFiles:
-      - ../../envs/common/goapp1-values.yaml
-      - ../../envs/{{ .Values.env }}/goapp1-values.yaml
+      - ../../envs/common/pyapp1-values.yaml
+      - ../../envs/{{ .Values.env }}/pyapp1-values.yaml
   destination:
     server: {{ .Values.spec.destination.server }}
     namespace: default

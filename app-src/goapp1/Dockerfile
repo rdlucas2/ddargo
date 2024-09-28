@@ -27,7 +27,7 @@ COPY test.sh /app/test.sh
 CMD ["/bin/sh", "/app/test.sh"]
 
 # Start a new stage
-FROM alpine:latest AS artifact
+FROM alpine:3.20.3 AS artifact
 
 # Remove apk
 RUN rm -rf /sbin/apk /etc/apk /lib/apk /usr/share/apk /var/lib/apk
