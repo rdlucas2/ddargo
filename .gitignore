@@ -35,3 +35,115 @@ out/
 
 # secret.yaml is a k8s secret that contains dockerhub credentials
 secret.yaml
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Virtual environments
+venv/
+env/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Test and coverage reports
+.coverage
+*.cover
+coverage.xml
+htmlcov/
+.out/
+out/
+*.log
+
+# Pytest cache
+.pytest_cache/
+
+# Mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# PyCharm
+.idea/
+*.iml
+
+# VS Code
+.vscode/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Eclipse
+.project
+.metadata/
+*.tmp
+*.bak
+*.swp
+*~.nib
+.remote-sync.json
+.local-history
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite3
+
+# Docker
+docker-compose.yml
+.dockerignore
+
+# Git
+.git/
+.gitignore
+
+# Environment variables
+.env
+.env.*
+
+# Editor settings
+*.sublime-workspace
+*.sublime-project
+.vim/
+*.swp
+*~
