@@ -24,18 +24,19 @@ COPY test.sh ./
 # Create a directory for test outputs
 RUN mkdir -p /app/out
 
-# Copy the test script into the container (ensure you have a test.sh or adjust as needed)
-COPY test.sh /app/test.sh
-
 # Command to run the test script
 CMD ["/bin/sh", "/app/test.sh"]
 
 # Stage 3: Artifact - Create the final production image
 FROM python:3.11-alpine AS artifact
 
-# Remove unnecessary packages (similar to Go example, though not as extensive for Python)
+# Remove unnecessary packages and clean up
 RUN rm -rf /sbin/apk /etc/apk /lib/apk /usr/share/apk /var/lib/apk && \
     pip uninstall -y setuptools
+
+# Copy the Python environment (including uvicorn and other installed packages) from the base stage
+COPY --from=base /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
+COPY --from=base /usr/local/bin /usr/local/bin
 
 # Create a non-root user and group
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
