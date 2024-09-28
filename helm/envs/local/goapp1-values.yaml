@@ -1,3 +1,0 @@
-ingress:
-  hosts:
-    - host: goapp1.local.me

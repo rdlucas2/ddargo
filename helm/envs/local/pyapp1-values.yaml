@@ -1,3 +1,0 @@
-ingress:
-  hosts:
-    - host: pyapp1.local.me
