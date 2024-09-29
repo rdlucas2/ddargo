@@ -6,8 +6,9 @@ on:
       - main
     paths:
       - 'app-src/pyapp1/**'
+  push:
     tags:
-      - '*'  # Trigger on tag creation
+      - '*'
     paths:
       - 'app-src/pyapp1/**'
 
