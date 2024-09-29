@@ -38,7 +38,7 @@ To run the Docker image, use the following command:
 docker run -it --rm -p 8000:8000 $DOCKERHUB_USERNAME/pyapp1:latest
 ```
 
-This command will start the container in interactive mode and remove it after it exits.
+This command will start the container in interactive mode and remove it after it exits. Add --entrypoint /bin/sh to explore the container.
 
 ## Running the Tests
 
