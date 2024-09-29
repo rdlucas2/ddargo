@@ -1,5 +1,2 @@
-nameOverride: discordbot-cronjob
-containerName: discordbot-container
-
 image:
   repository: rdlucas2/discordbot

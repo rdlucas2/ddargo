@@ -2,9 +2,9 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: {{ .Release.Name }}-{{ .Values.nameOverride | default "generic-cronjob" }}
+  name: {{ .Release.Name }}-{{ .Values.nameOverride | default "cronjob" }}
   labels:
-    app: {{ .Release.Name }}-{{ .Values.nameOverride | default "generic-cronjob" }}
+    app: {{ .Release.Name }}-{{ .Values.nameOverride | default "cronjob" }}
 spec:
   schedule: "{{ .Values.schedule }}"  # The cron schedule for the job
   jobTemplate:
@@ -12,10 +12,10 @@ spec:
       template:
         metadata:
           labels:
-            app: {{ .Release.Name }}-{{ .Values.nameOverride | default "generic-cronjob" }}
+            app: {{ .Release.Name }}-{{ .Values.nameOverride | default "cronjob" }}
         spec:
           containers:
-            - name: {{ .Values.containerName | default "job-container" }}
+            - name: {{ .Release.Name }}-{{ .Values.containerName | default "job-container" }}
               image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
               imagePullPolicy: {{ .Values.image.pullPolicy | default "IfNotPresent" }}
               env:
