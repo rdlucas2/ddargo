@@ -35,7 +35,7 @@ To build the Docker image and upload it to DockerHub, follow these steps:
 
 To run the Docker image, use the following command:
 ```bash
-docker run -it --rm -p 8000:8000 $DOCKERHUB_USERNAME/discordbot:latest
+docker run -it --rm -p 8000:8000 -e DISCORD_WEBHOOK_URL='YOUR_URL_HERE' $DOCKERHUB_USERNAME/discordbot:latest
 ```
 
 This command will start the container in interactive mode and remove it after it exits.
