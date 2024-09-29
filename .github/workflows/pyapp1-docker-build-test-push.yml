@@ -56,22 +56,13 @@ jobs:
         docker run -i --rm -v $(pwd)/out:/app/out -p 8000:8000 ${{ secrets.DOCKERHUB_USERNAME }}/pyapp1:test
 
     # Start SonarQube server using Docker
-    - name: Start SonarQube Server
+    - name: SonarQube Scan
       working-directory: app-src/pyapp1
       run: |
         docker run -d --name sonarqube -p 9000:9000 sonarqube:latest
         sleep 60  # Wait for SonarQube to start
-
-    # Generate SonarQube Token
-    - name: Generate SonarQube Token
-      run: |
         response=$(curl -X POST -u admin:admin "http://localhost:9000/api/user_tokens/generate?name=sonarqube-scanner")
         echo $response | jq -r '.token' > sonar_token.txt
-
-    # SonarQube Scan using Docker
-    - name: SonarQube Scan with Docker
-      working-directory: app-src/pyapp1
-      run: |
         docker run --rm \
           -v $(pwd):/usr/src \
           -v $(pwd)/sonar-project.properties:/usr/src/sonar-project.properties \
@@ -80,11 +71,7 @@ jobs:
           sonar-scanner \
           -Dsonar.host.url=http://localhost:9000 \
           -Dsonar.login=$(cat sonar_token.txt)
-
-    # Check SonarQube Quality Gate
-    - name: Check SonarQube Quality Gate
-      working-directory: app-src/pyapp1
-      run: |
+        sleep 60  # Wait for SonarQube results
         curl -u $(cat sonar_token.txt): \
         "http://localhost:9000/api/qualitygates/project_status?projectKey=pyapp1" \
         | jq -r '.projectStatus.status' | grep -q "OK"
