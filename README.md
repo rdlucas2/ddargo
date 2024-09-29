@@ -95,3 +95,4 @@ argocd app create bootstrap-example --dest-namespace argocd --dest-server https:
 - https://collabnix.com/getting-started-with-argocd-on-docker-desktop/
 - https://argo-cd.readthedocs.io/en/release-2.10/user-guide/commands/argocd_repo_add/
 - https://argo-cd.readthedocs.io/en/stable/operator-manual/cluster-bootstrapping/
+- https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/application.yaml
