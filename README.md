@@ -82,7 +82,8 @@ argocd cluster add docker-desktop
 argocd repo add https://git.example.com/repos/repo --github-app-id 1 --github-app-installation-id 2 --github-app-private-key-path test.private-key.pem
 ```
 
-
+### 3. adding the app of apps:
+argocd app create bootstrap-example --dest-namespace argocd --dest-server https://kubernetes.default.svc --repo https://github.com/rdlucas2/ddargo.git --path argo/bootstrap-example
 
 ## TODO:
 - create an argo app, k8s manifests or helm chart, create a simple app and host on dockerhub

@@ -7,7 +7,7 @@ ingress:
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: goapp1.example.me
+    - host: goapp1.localdev.me
       paths:
         - path: /
           pathType: Prefix

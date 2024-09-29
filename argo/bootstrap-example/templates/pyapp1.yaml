@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: goapp1
+  name: pyapp1
   namespace: argocd
 spec:
   project: default
@@ -13,8 +13,8 @@ spec:
       # Helm values files for overriding values in the helm chart
       # The path is relative to the spec.source.path directory defined above
       valueFiles:
-      - ../envs/common/goapp1-values.yaml
-      - ../envs/{{ .Values.env }}/goapp1-values.yaml
+      - ../../../envs/common/pyapp1-values.yaml
+      - ../../..envs/example/pyapp1-values.yaml
   destination:
     server: {{ .Values.spec.destination.server }}
     namespace: default
