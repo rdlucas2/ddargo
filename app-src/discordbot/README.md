@@ -1,7 +1,7 @@
 
-# discordbot - FastAPI Application
+# discordbot
 
-This repository contains a simple FastAPI application containerized using Docker. Below are instructions for building, testing, and scanning the application.
+This repository contains a simple script posting a message to discord containerized using Docker - the intention being it'll be called as a k8s cronjob for the demo argo cluster setup. Below are instructions for building, testing, and scanning the application.
 
 ## Building and Uploading the Docker Image
 
@@ -35,7 +35,7 @@ To build the Docker image and upload it to DockerHub, follow these steps:
 
 To run the Docker image, use the following command:
 ```bash
-docker run -it --rm -p 8000:8000 -e DISCORD_WEBHOOK_URL='YOUR_URL_HERE' $DOCKERHUB_USERNAME/discordbot:latest
+docker run -it --rm -e DISCORD_WEBHOOK_URL='YOUR_URL_HERE' $DOCKERHUB_USERNAME/discordbot:latest
 ```
 
 This command will start the container in interactive mode and remove it after it exits.
@@ -49,7 +49,7 @@ docker build -t $DOCKERHUB_USERNAME/discordbot:test --target test .
 
 To run the tests, use the following command:
 ```bash
-docker run -it --rm -v $(pwd)/out:/app/out -p 8000:8000 $DOCKERHUB_USERNAME/discordbot:test
+docker run -it --rm -v $(pwd)/out:/app/out $DOCKERHUB_USERNAME/discordbot:test
 ```
 
 This command will start the container in interactive mode and remove it after it exits, with test outputs available in the `out` folder.
