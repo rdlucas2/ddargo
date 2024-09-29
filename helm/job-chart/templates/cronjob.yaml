@@ -1,0 +1,46 @@
+# cronjob.yaml
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.nameOverride | default "generic-cronjob" }}
+  labels:
+    app: {{ .Release.Name }}-{{ .Values.nameOverride | default "generic-cronjob" }}
+spec:
+  schedule: "{{ .Values.schedule }}"  # The cron schedule for the job
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: {{ .Release.Name }}-{{ .Values.nameOverride | default "generic-cronjob" }}
+        spec:
+          containers:
+            - name: {{ .Values.containerName | default "job-container" }}
+              image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+              imagePullPolicy: {{ .Values.image.pullPolicy | default "IfNotPresent" }}
+              env:
+                # Add environment variables from values
+                {{- if .Values.env }}
+                {{- range $key, $value := .Values.env }}
+                - name: {{ $key }}
+                  value: "{{ $value }}"
+                {{- end }}
+                {{- end }}
+                # Add environment variables from Secrets
+                {{- if .Values.secrets }}
+                {{- range .Values.secrets }}
+                - name: {{ .name }}
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ .secretName }}
+                      key: {{ .secretKey }}
+                {{- end }}
+                {{- end }}
+              resources:
+                limits:
+                  memory: "{{ .Values.resources.limits.memory | default "128Mi" }}"
+                  cpu: "{{ .Values.resources.limits.cpu | default "500m" }}"
+                requests:
+                  memory: "{{ .Values.resources.requests.memory | default "64Mi" }}"
+                  cpu: "{{ .Values.resources.requests.cpu | default "250m" }}"
+          restartPolicy: {{ .Values.restartPolicy | default "OnFailure" }}

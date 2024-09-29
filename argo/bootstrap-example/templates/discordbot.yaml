@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: discordbot
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/rdlucas2/ddargo.git'
+    path: helm/job-chart
+    targetRevision: HEAD
+    helm:
+      # Helm values files for overriding values in the helm chart
+      # The path is relative to the spec.source.path directory defined above
+      valueFiles:
+      - ../../helm/envs/common/discordbot-values.yaml
+      - ../../helm/envs/example/discordbot-values.yaml
+  destination:
+    server: {{ .Values.spec.destination.server }}
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true

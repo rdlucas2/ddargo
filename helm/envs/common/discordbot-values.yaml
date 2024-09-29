@@ -1,0 +1,5 @@
+nameOverride: discordbot
+containerName: discordbot
+
+image:
+  repository: rdlucas2/discordbot

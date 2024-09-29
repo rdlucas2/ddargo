@@ -85,6 +85,10 @@ argocd repo add https://git.example.com/repos/repo --github-app-id 1 --github-ap
 ### 3. adding the app of apps:
 argocd app create bootstrap-example --dest-namespace argocd --dest-server https://kubernetes.default.svc --repo https://github.com/rdlucas2/ddargo.git --path argo/bootstrap-example
 
+### 4. for the discordbot app, add a secret to the cluster:
+kubectl create secret generic discord-webhook-secret \
+  --from-literal=DISCORD_WEBHOOK_URL='YOUR_URL_HERE'
+
 ## TODO:
 - create an argo app, k8s manifests or helm chart, create a simple app and host on dockerhub
 - write a script for complete setup

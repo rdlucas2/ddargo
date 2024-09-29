@@ -1,0 +1,43 @@
+# values.yaml
+
+# Default values for the generic-cronjob Helm chart.
+
+# CronJob configuration
+nameOverride: ""  # Optional name override for the CronJob
+schedule: "0 * * * *"  # Default schedule, runs every hour
+
+# Container configuration
+containerName: "generic-job-container"  # Default container name
+
+# Image configuration
+image:
+  repository: your-dockerhub-username/your-image
+  tag: latest  # Specify the image tag
+  pullPolicy: IfNotPresent  # Image pull policy
+
+# Environment variables (set any necessary env vars for the job)
+# env:
+#   MY_ENV_VAR: "some-value"
+#   ANOTHER_VAR: "another-value"
+
+# List of secrets to be injected as environment variables
+# secrets:
+#   - name: DISCORD_WEBHOOK_URL               # Environment variable name in the container
+#     secretName: discord-webhook-secret      # Name of the Kubernetes Secret
+#     secretKey: DISCORD_WEBHOOK_URL          # Key in the Secret
+
+#   - name: ANOTHER_SECRET_ENV                # Another environment variable
+#     secretName: another-secret              # Name of a different Secret
+#     secretKey: ANOTHER_SECRET_KEY           # Key in that Secret
+
+# Resource requests and limits
+resources:
+  limits:
+    memory: "128Mi"
+    cpu: "500m"
+  requests:
+    memory: "64Mi"
+    cpu: "250m"
+
+# Restart policy
+restartPolicy: OnFailure  # Options: Always, OnFailure, Never
