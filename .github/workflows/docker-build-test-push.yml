@@ -6,7 +6,6 @@ on:
       - main
     paths:
       - 'app-src/pyapp1/**'
-  push:
     tags:
       - '*'
     paths:
