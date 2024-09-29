@@ -13,8 +13,8 @@ spec:
       # Helm values files for overriding values in the helm chart
       # The path is relative to the spec.source.path directory defined above
       valueFiles:
-      - ../../../helm/envs/common/pyapp1-values.yaml
-      - ../../../helm/envs/example/pyapp1-values.yaml
+      - ../../helm/envs/common/pyapp1-values.yaml
+      - ../../helm/envs/example/pyapp1-values.yaml
   destination:
     server: {{ .Values.spec.destination.server }}
     namespace: default
