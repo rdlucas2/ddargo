@@ -84,4 +84,4 @@ This command will generate a vulnerability report and save it in the `out` folde
 
 ---
 
-Follow these instructions to build, test, and scan your FastAPI application effectively. If you encounter any issues, please consult the Docker, SonarQube, or Trivy documentation for additional guidance.
+Follow these instructions to build, test, and scan your discordbot. If you encounter any issues, please consult the Docker, SonarQube, or Trivy documentation for additional guidance.
