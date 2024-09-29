@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'app-src/pyapp1/**'
+  workflow_dispatch:  # Manual trigger
 
 jobs:
   build-test-push:
