@@ -8,13 +8,22 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/cont
 ```
 
 ### 2. test a simple example:
+- note that prefix.*localdev.me* is an nginx recognized name that maps DNS to 127.0.0.1
 ```bash
+#create
 kubectl create deployment demo --image=httpd --port=80
 
 kubectl expose deployment demo
 
 kubectl create ingress demo-localhost --class=nginx \
   --rule="demo.localdev.me/*=demo:80"
+
+#cleanup
+kubectl delete deployment demo
+
+kubectl delete svc demo
+
+kubectl delete ingress demo-localhost
 ```
 
 ### 3. remove the demo application by running delete commands
