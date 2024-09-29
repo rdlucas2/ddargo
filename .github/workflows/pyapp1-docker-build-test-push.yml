@@ -81,8 +81,6 @@ jobs:
       uses: aquasecurity/trivy-action@master
       with:
         image-ref: ${{ secrets.DOCKERHUB_USERNAME }}/pyapp1:${{ env.TAG_NAME }}
-        severity: HIGH,CRITICAL
-        ignore-unfixed: true
 
     # Push the Docker image
     - name: Push the Docker image

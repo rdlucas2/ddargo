@@ -30,19 +30,19 @@ CMD ["/bin/sh", "/app/test.sh"]
 # Stage 3: Artifact - Create the final production image
 FROM python:3.11-alpine AS artifact
 
-# Remove unnecessary packages and clean up
-RUN rm -rf /sbin/apk /etc/apk /lib/apk /usr/share/apk /var/lib/apk && \
-    pip uninstall -y setuptools
-
-# Copy the Python environment (including uvicorn and other installed packages) from the base stage
-COPY --from=base /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
-COPY --from=base /usr/local/bin /usr/local/bin
-
 # Create a non-root user and group
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
 # Set the working directory
 WORKDIR /app
+
+# Copy the Python environment (including uvicorn and other installed packages) from the base stage
+COPY --from=base /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
+COPY --from=base /usr/local/bin /usr/local/bin
+
+# Remove unnecessary packages and clean up
+RUN rm -rf /sbin/apk /etc/apk /lib/apk /usr/share/apk /var/lib/apk && \
+    pip uninstall -y setuptools
 
 # Copy the application files from the build stage
 COPY --from=base /app /app
