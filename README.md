@@ -86,7 +86,7 @@ argocd repo add https://git.example.com/repos/repo --github-app-id 1 --github-ap
 argocd app create bootstrap-example --dest-namespace argocd --dest-server https://kubernetes.default.svc --repo https://github.com/rdlucas2/ddargo.git --path argo/bootstrap-example
 
 ### 4. for the discordbot app, add a secret to the cluster:
-kubectl create secret generic discord-webhook-secret \
+kubectl create secret generic discord-webhook-secret-example \
   --from-literal=DISCORD_WEBHOOK_URL='YOUR_URL_HERE'
 
 ## TODO:
