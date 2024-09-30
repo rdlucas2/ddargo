@@ -1,5 +1,11 @@
 # Setup ArgoCD with docker desktop
 
+This is an example repository, meant to be setup with the argocd app of apps pattern. The README.md shows how to setup argocd on docker-desktop, and expose the UI through an nginx ingress. Add the repository to argo, then add the app of apps, and sync it.
+
+The projects within the app-src directory are simple applications, with builds, tests, scans, and pushes to dockerhub. This allows you to have a few applications to place into the app of apps.
+
+Helm charts are used to serve the projects in app-src as web applications and a kubernetes cronjob. The argo folder uses a Helm chart as well, with 2 separate charts, one for each environment, then the helm/envs folder has env specific overrides for the apps deployed from the app of apps of argo. This allows different apps or verisons of apps to be deployed to different environments (and/or even different clusters).
+
 ## nginx ingress setup
 
 ### 1. add the ingress
@@ -98,9 +104,11 @@ argocd app create bootstrap-example --dest-namespace argocd --dest-server https:
 kubectl create secret generic discord-webhook-secret-example \
   --from-literal=DISCORD_WEBHOOK_URL='YOUR_URL_HERE'
 
-## TODO:
-- create an argo app, k8s manifests or helm chart, create a simple app and host on dockerhub
-- write a script for complete setup
+## Additional setup items
+
+### 1. add secrets to github for DOCKERHUB_USERNAME and DOCKERHUB_PASSWORD
+
+### 2. build and deploy your applications your dockerhub account
 
 ### References:
 - https://kubernetes.github.io/ingress-nginx/deploy/#quick-start
