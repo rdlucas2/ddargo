@@ -8,12 +8,12 @@ Helm charts are used to serve the projects in app-src as web applications and a 
 
 ## nginx ingress setup
 
-### 1. add the ingress
+### 1. Add the ingress
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.11.2/deploy/static/provider/cloud/deploy.yaml
 ```
 
-### 2. test a simple example:
+### 2. Test a simple example:
 - note that prefix.*localdev.me* is an nginx recognized name that maps DNS to 127.0.0.1
 ```bash
 #create
@@ -32,7 +32,7 @@ kubectl delete svc demo
 kubectl delete ingress demo-localhost
 ```
 
-### 3. remove the demo application by running delete commands
+### 3. Remove the demo application by running delete commands
 
 ## Install argocd cli
 
@@ -58,7 +58,7 @@ kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml`
 ```
 
-### 4. allow insecure (not for production usage):
+### 4. Allow insecure (not for production usage):
 ```bash
  kubectl patch deployment argocd-server -n argocd   --type='json' -p='[{"op": "add", "path": "/spec/template/spec/containers/0/args/-", "value": "--insecure"}]'
  ```
@@ -80,35 +80,47 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 argocd login argo.localdev.me
 ```
 
-### 9. register docker-desktop cluster
+### 9. Register docker-desktop cluster
 ```bash
 argocd cluster add docker-desktop
 ```
 
 ## Adding Repositories and Apps
 
-### 1. make a github app: 
+### 1. Make a github app: 
 - make a new app here: `https://github.com/settings/apps/new`
 - create a private key to be used in next step (and add *.pem to your .gitignore)
 
-### 2. add the repo:
+### 2. Add the repo:
 - replace app id, installation id, and the pem with your own values
 ```
 argocd repo add https://git.example.com/repos/repo --github-app-id 1 --github-app-installation-id 2 --github-app-private-key-path test.private-key.pem
 ```
 
-### 3. adding the app of apps:
+### 3. Adding the app of apps:
 argocd app create bootstrap-example --dest-namespace argocd --dest-server https://kubernetes.default.svc --repo https://github.com/rdlucas2/ddargo.git --path argo/bootstrap-example
 
-### 4. for the discordbot app, add a secret to the cluster:
+### 4. For the discordbot app, add a secret to the cluster:
 kubectl create secret generic discord-webhook-secret-example \
   --from-literal=DISCORD_WEBHOOK_URL='YOUR_URL_HERE'
 
 ## Additional setup items
 
-### 1. add secrets to github for DOCKERHUB_USERNAME and DOCKERHUB_PASSWORD
+### 1. Add secrets to github for DOCKERHUB_USERNAME and DOCKERHUB_PASSWORD
 
-### 2. build and deploy your applications your dockerhub account
+### 2. Build and deploy your applications to your dockerhub account
+
+### 3 Other considerations:
+  It would be useful if you had a sonarqube instance already running instead of trying to have to spin one up in the github action each time (this isn't an issue locally as you can run the sonarqube server with docker on your local machine and make it more persistant).
+
+  This is meant to be used locally, but would apply to any cluster you have access to. Be sure not to use the insecure communication if not running via docker-desktop.
+
+  To deploy a new verions of an app, simply update the either the helm charts and/or env overrides files, and autosync will eventually pickup changes to the cluster. Multi-environment deployments are handled via different folders, so different apps and versions can be deployed to the different environments.
+
+## TODO:
+- consider adding opa scans for the helm charts
+- consider setup on a cloud provider
+- add a better deployment mechanism (harness community edition?)
 
 ### References:
 - https://kubernetes.github.io/ingress-nginx/deploy/#quick-start
