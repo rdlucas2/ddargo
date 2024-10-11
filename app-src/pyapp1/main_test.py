@@ -8,7 +8,7 @@ def test_read_root():
     """Test the root endpoint."""
     response = client.get("/")
     assert response.status_code == 200
-    assert response.json() == {"message": "Hello, World!"}
+    assert response.json() == {"message": "Hello, World! From K8s!"}
 
 def test_read_item_without_query():
     """Test the /items/{item_id} endpoint without query parameter."""

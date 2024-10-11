@@ -2,6 +2,7 @@
 
 image:
   repository: rdlucas2/pyapp1
+  tag: v0.0.2
 
 service:
   port: 8000
