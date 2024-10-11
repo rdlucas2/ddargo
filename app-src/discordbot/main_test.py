@@ -4,7 +4,7 @@ import requests
 import os
 
 # The function to be tested (assuming it's in a file named `main.py`)
-from main import webhook_url, joke_response, response
+from main import webhook_url, fact_response, response
 
 class TestDiscordBot(unittest.TestCase):
 
@@ -15,33 +15,33 @@ class TestDiscordBot(unittest.TestCase):
 
     @patch('requests.get')
     @patch.dict(os.environ, {'DISCORD_WEBHOOK_URL': 'https://discord.com/api/webhooks/test-url'})
-    def test_fetch_joke_success(self, mock_get):
-        """Test fetching a Chuck Norris joke successfully."""
-        # Mock the response from the Chuck Norris API
+    def test_fetch_fact_success(self, mock_get):
+        """Test fetching a cat fact successfully."""
+        # Mock the response from the Cat Facts API
         mock_response = MagicMock()
         mock_response.status_code = 200
-        mock_response.json.return_value = {"value": "Chuck Norris counted to infinity. Twice."}
+        mock_response.json.return_value = {"fact": "Cats have five toes on their front paws, but only four toes on their back paws."}
         mock_get.return_value = mock_response
 
-        joke_response = requests.get("https://api.chucknorris.io/jokes/random")
-        joke_data = joke_response.json()
-        joke = joke_data.get("value", "Couldn't fetch a joke right now.")
+        fact_response = requests.get("https://catfact.ninja/fact")
+        fact_data = fact_response.json()
+        cat_fact = fact_data.get("fact", "Couldn't fetch a cat fact right now.")
         
-        self.assertEqual(joke, "Chuck Norris counted to infinity. Twice.")
+        self.assertEqual(cat_fact, "Cats have five toes on their front paws, but only four toes on their back paws.")
 
     @patch('requests.get')
     @patch.dict(os.environ, {'DISCORD_WEBHOOK_URL': 'https://discord.com/api/webhooks/test-url'})
-    def test_fetch_joke_failure(self, mock_get):
-        """Test fetching a Chuck Norris joke fails."""
-        # Mock a failed response from the Chuck Norris API
+    def test_fetch_fact_failure(self, mock_get):
+        """Test fetching a cat fact fails."""
+        # Mock a failed response from the Cat Facts API
         mock_response = MagicMock()
         mock_response.status_code = 500
         mock_get.return_value = mock_response
 
-        joke_response = requests.get("https://api.chucknorris.io/jokes/random")
+        fact_response = requests.get("https://catfact.ninja/fact")
 
-        self.assertEqual(joke_response.status_code, 500)
-        self.assertNotEqual(joke_response.status_code, 200)
+        self.assertEqual(fact_response.status_code, 500)
+        self.assertNotEqual(fact_response.status_code, 200)
 
     @patch('requests.post')
     @patch.dict(os.environ, {'DISCORD_WEBHOOK_URL': 'https://discord.com/api/webhooks/test-url'})
@@ -54,7 +54,7 @@ class TestDiscordBot(unittest.TestCase):
 
         data = {
             "content": "Test message",
-            "username": "Chuck Norris Bot"
+            "username": "Cat Facts Bot"
         }
 
         response = requests.post(os.environ.get('DISCORD_WEBHOOK_URL'), json=data)
@@ -72,7 +72,7 @@ class TestDiscordBot(unittest.TestCase):
 
         data = {
             "content": "Test message",
-            "username": "Chuck Norris Bot"
+            "username": "Cat Facts Bot"
         }
 
         response = requests.post(os.environ.get('DISCORD_WEBHOOK_URL'), json=data)
