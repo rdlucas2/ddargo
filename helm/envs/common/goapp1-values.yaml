@@ -2,3 +2,4 @@
 
 image:
   repository: rdlucas2/goapp1
+  tag: v0.0.3
